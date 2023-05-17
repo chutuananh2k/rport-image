@@ -5,7 +5,12 @@ services:
     image: rport
     command: [ "--auth", "yusuf:pass" ]
     ports:
-      - 8080:8080
-      - 3000:3000
+      - 127.0.0.1:8085:8080
+      - 127.0.0.1:3001:3000
     # volumes:
     #   - ./rport-lib:/var/lib/rport
+
+networks:
+  default:
+    name: app-net
+    external: true

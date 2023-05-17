@@ -1,16 +1,16 @@
 FROM alpine:3.18 as downloader
 
 ARG RPORT_VERSION=0.9.12
-ARG FRONTEND_BUILD=0.9.12-build-1128
+ARG FRONTEND_BUILD=0.9.12-1-build-1129
 #ARG rportplus=0.1.0
-ARG NOVNC_VERSION=1.3.0
+ARG NOVNC_VERSION=1.4.0
 
 RUN apk add unzip
 
 WORKDIR /app/
 
 RUN set -e \
-    && wget https://github.com/cloudradar-monitoring/rport/releases/download/${RPORT_VERSION}/rportd_${RPORT_VERSION}_Linux_$(uname -m).tar.gz -O rportd.tar.gz \
+    && wget https://github.com/realvnc-labs/rport/releases/download/${RPORT_VERSION}/rportd_${RPORT_VERSION}_Linux_$(uname -m).tar.gz -O rportd.tar.gz \
     && tar xzf rportd.tar.gz rportd
 
 RUN set -e \
@@ -25,8 +25,8 @@ WORKDIR /envplate
 RUN set -e \
     && arch=$(uname -m) \
     && if [ "${arch}" == "aarch64" ]; then release_arch="arm64"; else release_arch=${arch}; fi \
-    && release_name=envplate_1.0.2_$(uname -s)_${release_arch}.tar.gz \
-    && wget https://github.com/kreuzwerker/envplate/releases/download/v1.0.2/${release_name} -O envplate.tar.gz \
+    && release_name=envplate_1.0.3_$(uname -s)_${release_arch}.tar.gz \
+    && wget https://github.com/kreuzwerker/envplate/releases/download/v1.0.3/${release_name} -O envplate.tar.gz \
     && tar -xf envplate.tar.gz
 
 FROM debian:11
